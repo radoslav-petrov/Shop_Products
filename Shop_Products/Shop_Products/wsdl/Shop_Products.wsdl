@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Shop_Products/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Shop_Products" targetNamespace="http://www.example.org/Shop_Products/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/Shop_Products/">
+      <xsd:element name="NewOperation">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="productName" type="xsd:string" />
+          	<xsd:element name="id" type="xsd:string"></xsd:element>
+          	<xsd:element name="aPrice" type="xsd:decimal"></xsd:element>
+          	<xsd:element name="quantity" type="xsd:int"></xsd:element>
+          	<xsd:element name="dateOfArrival" type="xsd:date"></xsd:element>
+          	<xsd:element name="manufacturer" type="xsd:string"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NewOperationResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="fPrice" type="xsd:decimal" />
+          	<xsd:element name="allProductsCounter" type="xsd:int"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="NewOperationRequest">
+    <wsdl:part element="tns:NewOperation" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="NewOperationResponse">
+    <wsdl:part element="tns:NewOperationResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="Shop_Products">
+    <wsdl:operation name="NewOperation">
+      <wsdl:input message="tns:NewOperationRequest"/>
+      <wsdl:output message="tns:NewOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Shop_ProductsSOAP" type="tns:Shop_Products">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="NewOperation">
+      <soap:operation soapAction="http://www.example.org/Shop_Products/NewOperation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Shop_Products">
+    <wsdl:port binding="tns:Shop_ProductsSOAP" name="Shop_ProductsSOAP">
+      <soap:address location="htpp://www.rado.com"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
